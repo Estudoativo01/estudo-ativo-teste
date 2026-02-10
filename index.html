@@ -2,137 +2,235 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Estudo Ativo – Direito Constitucional</title>
+<title>Estudo Ativo – TRT</title>
+
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #f5f7fa;
-        padding: 40px;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
 
-    .container {
-        max-width: 800px;
-        margin: auto;
-        background: white;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+header {
+    background: #1f3c88;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 22px;
+}
 
-    .question {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-    .options {
-        margin-top: 15px;
-        display: none;
-    }
+.hidden {
+    display: none;
+}
 
-    .answer {
-        margin-top: 20px;
-        padding: 15px;
-        background: #eef3ff;
-        border-radius: 6px;
-        display: none;
-    }
+select, button {
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 10px;
+}
 
-    .answer b {
-        color: blue;
-    }
+button {
+    cursor: pointer;
+}
 
-    button {
-        margin-top: 15px;
-        margin-right: 10px;
-        padding: 8px 14px;
-        font-size: 14px;
-        cursor: pointer;
-    }
+.question {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
 
-    .feedback-buttons {
-        display: none;
-        margin-top: 15px;
-    }
+.answer {
+    background: #eef3ff;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 6px;
+    display: none;
+}
 
-    .next {
-        display: none;
-        margin-top: 20px;
-    }
+.answer b {
+    color: blue;
+}
+
+.options {
+    margin-top: 15px;
+    display: none;
+}
+
+.feedback {
+    margin-top: 15px;
+    display: none;
+}
+
+.next {
+    margin-top: 20px;
+    display: none;
+}
 </style>
 </head>
+
 <body>
+
+<header>
+    Estudo Ativo – TRT
+</header>
 
 <div class="container">
 
+<!-- TELA DE FILTRO -->
+<div id="filter-screen">
+    <h2>Escolha a matéria</h2>
+
+    <select id="materiaSelect" onchange="loadAssuntos()">
+        <option value="">Selecione</option>
+        <option value="Constitucional">Direito Constitucional</option>
+        <option value="Administrativo">Direito Administrativo</option>
+        <option value="Trabalho">Direito do Trabalho</option>
+    </select>
+
+    <h2>Escolha o assunto</h2>
+
+    <select id="assuntoSelect">
+        <option value="">Selecione a matéria primeiro</option>
+    </select>
+
+    <br><br>
+    <button onclick="startStudy()">Iniciar estudo</button>
+</div>
+
+<!-- TELA DE QUESTÕES -->
+<div id="study-screen" class="hidden">
     <div id="question-container"></div>
+</div>
 
 </div>
 
 <script>
+// =================== QUESTÕES ===================
 const questions = [
+    // CONSTITUCIONAL – PODER LEGISLATIVO
     {
-        question: `É prerrogativa do TCU apreciar as contas prestadas _________ (periodicidade) pelo _________________________ (pessoa), mediante parecer prévio que deverá ser elaborado em _________ (prazo) dias, a contar de seu recebimento.`,
-        answer: `Resposta: É prerrogativa do TCU apreciar as contas prestadas <b>semestralmente</b> pelo <b>Presidente da República</b>, mediante parecer prévio que deverá ser elaborado em <b>sessenta</b> dias, a contar de seu recebimento.<br><br>
-        Base normativa: art. 71, I, da Constituição Federal de 1988.`,
-        hasOptions: false
+        materia: "Constitucional",
+        assunto: "Poder Legislativo",
+        pergunta: "Qual é o número total de Deputados Federais? Qual o número mínimo e máximo por Estado?",
+        resposta: "Resposta: A Câmara dos Deputados é composta por <b>513 Deputados Federais</b>, sendo o número mínimo de <b>8</b> e o máximo de <b>70</b> Deputados por Estado.<br><br>Base normativa: art. 45, §1º, CF/88.",
+        opcoes: null
     },
+
+    // CONSTITUCIONAL – DIREITOS FUNDAMENTAIS
     {
-        question: `Segundo a jurisprudência do STF, no âmbito dos poderes de investigação das CPIs:<br><br>
-        a) quais são as 4 medidas que não podem ser determinadas pela CPI por dependerem de reserva de jurisdição?<br>
-        b) qual é a 1 medida que pode ser determinada diretamente pela CPI?`,
-        options: `
-        <p>Agora marque, entre as opções abaixo, quais podem e quais não podem ser determinadas por CPI:</p>
-        <label><input type="checkbox"> A CPI pode determinar a indisponibilidade de bens dos investigados.</label><br>
-        <label><input type="checkbox"> A CPI pode determinar a quebra do sigilo bancário.</label><br>
-        <label><input type="checkbox"> A CPI pode decretar prisão preventiva.</label><br>
-        <label><input type="checkbox"> A CPI pode realizar busca domiciliar.</label><br>
-        <label><input type="checkbox"> A CPI pode autorizar interceptação telefônica.</label>
-        `,
-        answer: `Resposta:<br>
-        <b>Não podem ser determinadas pela CPI:</b><br>
-        <b>indisponibilidade de bens</b>, <b>prisão preventiva</b>, <b>busca domiciliar</b> e <b>interceptação telefônica</b>.<br><br>
-        <b>Pode ser determinada pela CPI:</b><br>
-        <b>quebra do sigilo bancário</b>.<br><br>
-        Base normativa: art. 58, §3º, da CF/88; jurisprudência do STF.`,
-        hasOptions: true
+        materia: "Constitucional",
+        assunto: "Direitos Fundamentais",
+        pergunta: "O direito à liberdade de expressão é absoluto segundo a Constituição Federal?",
+        resposta: "Resposta: <b>Não</b>. A liberdade de expressão não é absoluta, podendo sofrer restrições para proteção de outros direitos fundamentais.<br><br>Base normativa: art. 5º, IV e X, CF/88; jurisprudência do STF.",
+        opcoes: null
     },
+
+    // ADMINISTRATIVO – ATOS ADMINISTRATIVOS
     {
-        question: `Conforme disposto expressamente no texto da Constituição Federal de 1988, a autorização de operações externas de natureza financeira, de interesse da União, dos Estados, do Distrito Federal, dos Territórios e dos Municípios, é competência de qual órgão?`,
-        options: `
-        <label><input type="radio" name="q3"> Congresso Nacional</label><br>
-        <label><input type="radio" name="q3"> Câmara dos Deputados</label><br>
-        <label><input type="radio" name="q3"> Senado Federal</label>
-        `,
-        answer: `Resposta: <b>Congresso Nacional</b>.<br><br>
-        Base normativa: art. 49, I, da Constituição Federal de 1988.`,
-        hasOptions: true
+        materia: "Administrativo",
+        assunto: "Atos Administrativos",
+        pergunta: "Quais são os elementos do ato administrativo?",
+        resposta: "Resposta: Os elementos do ato administrativo são <b>competência, finalidade, forma, motivo e objeto</b>.<br><br>Base normativa: doutrina majoritária.",
+        opcoes: null
     },
+
+    // ADMINISTRATIVO – PODERES PÚBLICOS
     {
-        question: `Do que se trata a imunidade parlamentar material?<br>
-        Segundo a jurisprudência do STF, essa imunidade é automática ou depende do atendimento de determinado requisito relacionado à atuação parlamentar?`,
-        answer: `Resposta: A imunidade parlamentar material consiste na <b>impossibilidade de responsabilização civil ou penal dos parlamentares por suas opiniões, palavras e votos</b>. Segundo a jurisprudência do STF, sua incidência <b>não é automática</b>, dependendo da existência de <b>nexo funcional entre a manifestação e o exercício do mandato</b>.<br><br>
-        Base normativa: art. 53, caput, da CF/88; jurisprudência do STF.`,
-        hasOptions: false
+        materia: "Administrativo",
+        assunto: "Poderes Públicos",
+        pergunta: "Em que consiste o poder de polícia administrativa?",
+        resposta: "Resposta: O poder de polícia consiste na <b>atividade da Administração Pública que limita o exercício de direitos individuais em prol do interesse público</b>.<br><br>Base normativa: art. 78 do CTN.",
+        opcoes: null
+    },
+
+    // TRABALHO – ADICIONAIS
+    {
+        materia: "Trabalho",
+        assunto: "Adicionais",
+        pergunta: "Qual é o percentual do adicional de horas extras previsto na CLT?",
+        resposta: "Resposta: O adicional de horas extras é de, no mínimo, <b>50%</b> sobre a hora normal.<br><br>Base normativa: art. 7º, XVI, CF/88; art. 59, CLT.",
+        opcoes: null
+    },
+
+    // TRABALHO – EFEITOS E DURAÇÃO
+    {
+        materia: "Trabalho",
+        assunto: "Efeitos e duração do trabalho nos contratos de emprego",
+        pergunta: "Qual é a duração normal do trabalho segundo a Constituição Federal?",
+        resposta: "Resposta: A duração normal do trabalho é de <b>8 horas diárias</b> e <b>44 semanais</b>.<br><br>Base normativa: art. 7º, XIII, CF/88.",
+        opcoes: null
     }
 ];
 
-let current = 0;
+let filteredQuestions = [];
+let currentIndex = 0;
 
+// =================== FILTROS ===================
+function loadAssuntos() {
+    const materia = document.getElementById("materiaSelect").value;
+    const assuntoSelect = document.getElementById("assuntoSelect");
+    assuntoSelect.innerHTML = "";
+
+    let assuntos = [];
+
+    if (materia === "Constitucional") {
+        assuntos = ["Poder Legislativo", "Direitos Fundamentais"];
+    }
+    if (materia === "Administrativo") {
+        assuntos = ["Atos Administrativos", "Poderes Públicos"];
+    }
+    if (materia === "Trabalho") {
+        assuntos = ["Adicionais", "Efeitos e duração do trabalho nos contratos de emprego"];
+    }
+
+    assuntos.forEach(a => {
+        const option = document.createElement("option");
+        option.value = a;
+        option.textContent = a;
+        assuntoSelect.appendChild(option);
+    });
+}
+
+function startStudy() {
+    const materia = document.getElementById("materiaSelect").value;
+    const assunto = document.getElementById("assuntoSelect").value;
+
+    filteredQuestions = questions.filter(q => q.materia === materia && q.assunto === assunto);
+
+    if (filteredQuestions.length === 0) {
+        alert("Não há questões cadastradas para este assunto.");
+        return;
+    }
+
+    document.getElementById("filter-screen").classList.add("hidden");
+    document.getElementById("study-screen").classList.remove("hidden");
+
+    currentIndex = 0;
+    loadQuestion();
+}
+
+// =================== QUESTÕES ===================
 function loadQuestion() {
-    const q = questions[current];
+    const q = filteredQuestions[currentIndex];
     const container = document.getElementById("question-container");
 
     container.innerHTML = `
-        <div class="question">${q.question}</div>
+        <div class="question">${q.pergunta}</div>
 
-        ${q.hasOptions ? `<button onclick="showOptions()">Ver opções para conferência</button>` : ``}
         <button onclick="showAnswer()">Mostrar resposta</button>
 
-        <div class="options" id="options">${q.options || ""}</div>
+        <div class="answer" id="answer">${q.resposta}</div>
 
-        <div class="answer" id="answer">${q.answer}</div>
-
-        <div class="feedback-buttons" id="feedback">
+        <div class="feedback" id="feedback">
             <button>Acertei</button>
             <button>Errei</button>
         </div>
@@ -143,10 +241,6 @@ function loadQuestion() {
     `;
 }
 
-function showOptions() {
-    document.getElementById("options").style.display = "block";
-}
-
 function showAnswer() {
     document.getElementById("answer").style.display = "block";
     document.getElementById("feedback").style.display = "block";
@@ -154,16 +248,14 @@ function showAnswer() {
 }
 
 function nextQuestion() {
-    current++;
-    if (current < questions.length) {
+    currentIndex++;
+    if (currentIndex < filteredQuestions.length) {
         loadQuestion();
     } else {
         document.getElementById("question-container").innerHTML =
-            "<h2>Fim do teste 🎉</h2><p>Parabéns por concluir!</p>";
+            "<h2>Fim do estudo 🎉</h2><p>Você concluiu este bloco.</p>";
     }
 }
-
-loadQuestion();
 </script>
 
 </body>
