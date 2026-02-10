@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Estudo Ativo – Direito Constitucional</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .question {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .options {
+        margin-top: 15px;
+        display: none;
+    }
+
+    .answer {
+        margin-top: 20px;
+        padding: 15px;
+        background: #eef3ff;
+        border-radius: 6px;
+        display: none;
+    }
+
+    .answer b {
+        color: blue;
+    }
+
+    button {
+        margin-top: 15px;
+        margin-right: 10px;
+        padding: 8px 14px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .feedback-buttons {
+        display: none;
+        margin-top: 15px;
+    }
+
+    .next {
+        display: none;
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div id="question-container"></div>
+
+</div>
+
+<script>
+const questions = [
+    {
+        question: `É prerrogativa do TCU apreciar as contas prestadas _________ (periodicidade) pelo _________________________ (pessoa), mediante parecer prévio que deverá ser elaborado em _________ (prazo) dias, a contar de seu recebimento.`,
+        answer: `Resposta: É prerrogativa do TCU apreciar as contas prestadas <b>semestralmente</b> pelo <b>Presidente da República</b>, mediante parecer prévio que deverá ser elaborado em <b>sessenta</b> dias, a contar de seu recebimento.<br><br>
+        Base normativa: art. 71, I, da Constituição Federal de 1988.`,
+        hasOptions: false
+    },
+    {
+        question: `Segundo a jurisprudência do STF, no âmbito dos poderes de investigação das CPIs:<br><br>
+        a) quais são as 4 medidas que não podem ser determinadas pela CPI por dependerem de reserva de jurisdição?<br>
+        b) qual é a 1 medida que pode ser determinada diretamente pela CPI?`,
+        options: `
+        <p>Agora marque, entre as opções abaixo, quais podem e quais não podem ser determinadas por CPI:</p>
+        <label><input type="checkbox"> A CPI pode determinar a indisponibilidade de bens dos investigados.</label><br>
+        <label><input type="checkbox"> A CPI pode determinar a quebra do sigilo bancário.</label><br>
+        <label><input type="checkbox"> A CPI pode decretar prisão preventiva.</label><br>
+        <label><input type="checkbox"> A CPI pode realizar busca domiciliar.</label><br>
+        <label><input type="checkbox"> A CPI pode autorizar interceptação telefônica.</label>
+        `,
+        answer: `Resposta:<br>
+        <b>Não podem ser determinadas pela CPI:</b><br>
+        <b>indisponibilidade de bens</b>, <b>prisão preventiva</b>, <b>busca domiciliar</b> e <b>interceptação telefônica</b>.<br><br>
+        <b>Pode ser determinada pela CPI:</b><br>
+        <b>quebra do sigilo bancário</b>.<br><br>
+        Base normativa: art. 58, §3º, da CF/88; jurisprudência do STF.`,
+        hasOptions: true
+    },
+    {
+        question: `Conforme disposto expressamente no texto da Constituição Federal de 1988, a autorização de operações externas de natureza financeira, de interesse da União, dos Estados, do Distrito Federal, dos Territórios e dos Municípios, é competência de qual órgão?`,
+        options: `
+        <label><input type="radio" name="q3"> Congresso Nacional</label><br>
+        <label><input type="radio" name="q3"> Câmara dos Deputados</label><br>
+        <label><input type="radio" name="q3"> Senado Federal</label>
+        `,
+        answer: `Resposta: <b>Congresso Nacional</b>.<br><br>
+        Base normativa: art. 49, I, da Constituição Federal de 1988.`,
+        hasOptions: true
+    },
+    {
+        question: `Do que se trata a imunidade parlamentar material?<br>
+        Segundo a jurisprudência do STF, essa imunidade é automática ou depende do atendimento de determinado requisito relacionado à atuação parlamentar?`,
+        answer: `Resposta: A imunidade parlamentar material consiste na <b>impossibilidade de responsabilização civil ou penal dos parlamentares por suas opiniões, palavras e votos</b>. Segundo a jurisprudência do STF, sua incidência <b>não é automática</b>, dependendo da existência de <b>nexo funcional entre a manifestação e o exercício do mandato</b>.<br><br>
+        Base normativa: art. 53, caput, da CF/88; jurisprudência do STF.`,
+        hasOptions: false
+    }
+];
+
+let current = 0;
+
+function loadQuestion() {
+    const q = questions[current];
+    const container = document.getElementById("question-container");
+
+    container.innerHTML = `
+        <div class="question">${q.question}</div>
+
+        ${q.hasOptions ? `<button onclick="showOptions()">Ver opções para conferência</button>` : ``}
+        <button onclick="showAnswer()">Mostrar resposta</button>
+
+        <div class="options" id="options">${q.options || ""}</div>
+
+        <div class="answer" id="answer">${q.answer}</div>
+
+        <div class="feedback-buttons" id="feedback">
+            <button>Acertei</button>
+            <button>Errei</button>
+        </div>
+
+        <div class="next" id="next">
+            <button onclick="nextQuestion()">Próxima pergunta</button>
+        </div>
+    `;
+}
+
+function showOptions() {
+    document.getElementById("options").style.display = "block";
+}
+
+function showAnswer() {
+    document.getElementById("answer").style.display = "block";
+    document.getElementById("feedback").style.display = "block";
+    document.getElementById("next").style.display = "block";
+}
+
+function nextQuestion() {
+    current++;
+    if (current < questions.length) {
+        loadQuestion();
+    } else {
+        document.getElementById("question-container").innerHTML =
+            "<h2>Fim do teste 🎉</h2><p>Parabéns por concluir!</p>";
+    }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
