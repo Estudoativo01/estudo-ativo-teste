@@ -1,186 +1,169 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Simulador de Estudo Ativo - TRT</title>
-
+<title>Estudo Ativo – Direito Constitucional</title>
 <style>
-body{
-    font-family: Arial, sans-serif;
-    background:#f4f6f9;
-    margin:0;
-    padding:20px;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f7fa;
+        padding: 40px;
+    }
 
-.container{
-    max-width:900px;
-    margin:auto;
-    background:white;
-    padding:30px;
-    border-radius:12px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-h2{
-    margin-top:0;
-    color:#333;
-}
+    .question {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
 
-.materia{
-    font-size:14px;
-    color:#666;
-    margin-bottom:10px;
-}
+    .options {
+        margin-top: 15px;
+        display: none;
+    }
 
-.pergunta{
-    font-size:18px;
-    margin-bottom:20px;
-}
+    .answer {
+        margin-top: 20px;
+        padding: 15px;
+        background: #eef3ff;
+        border-radius: 6px;
+        display: none;
+    }
 
-button{
-    padding:8px 14px;
-    margin:5px 5px 5px 0;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    background:#2563eb;
-    color:white;
-}
+    .answer b {
+        color: blue;
+    }
 
-button:hover{
-    opacity:0.9;
-}
+    button {
+        margin-top: 15px;
+        margin-right: 10px;
+        padding: 8px 14px;
+        font-size: 14px;
+        cursor: pointer;
+    }
 
-.resposta{
-    margin-top:15px;
-    font-weight:bold;
-    color:#1d4ed8;
-}
+    .feedback-buttons {
+        display: none;
+        margin-top: 15px;
+    }
 
-.caixa-ajuda{
-    margin-top:15px;
-    background:#f1f5f9;
-    padding:15px;
-    border-radius:8px;
-}
-
-.extra{
-    margin-top:15px;
-    background:#eef2ff;
-    padding:15px;
-    border-radius:8px;
-}
+    .next {
+        display: none;
+        margin-top: 20px;
+    }
 </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="materia" id="materia"></div>
-    <div class="pergunta" id="pergunta"></div>
 
-    <button onclick="mostrarAjuda()">Ajuda</button>
-    <button onclick="mostrarResposta()">Mostrar Resposta</button>
+    <div id="question-container"></div>
 
-    <div id="ajuda" class="caixa-ajuda" style="display:none;"></div>
-    <div id="resposta" class="resposta" style="display:none;"></div>
-
-    <div id="botoesResultado" style="display:none;">
-        <button onclick="acertou()">Acertei</button>
-        <button onclick="errou()">Errei</button>
-    </div>
-
-    <button onclick="proximaPergunta()">Próxima Pergunta</button>
 </div>
 
 <script>
-
-const perguntas = [
-
-{
-materia:"Constitucional - Poder Legislativo",
-pergunta:"1) É prerrogativa do TCU apreciar as contas prestadas _________ pelo _________________________, mediante parecer prévio que deverá ser elaborado em _________ dias, a contar de seu recebimento.",
-ajuda:"Pense na autoridade máxima do Poder Executivo federal e no prazo previsto no art. 71, I, da CF.",
-resposta:"Resposta: É prerrogativa do TCU apreciar as contas prestadas <b>anualmente</b> pelo <b>Presidente da República</b>, mediante parecer prévio que deverá ser elaborado em <b>sessenta dias</b>, a contar de seu recebimento.<br><br>Base normativa: art. 71, I, da Constituição Federal de 1988."
-},
-
-{
-materia:"Constitucional - Poder Legislativo",
-pergunta:"2) Segundo o STF, quais medidas NÃO podem ser determinadas por CPI por dependerem de reserva de jurisdição? E qual medida pode ser determinada diretamente?",
-ajuda:"Medidas vedadas: prisão preventiva, busca domiciliar, interceptação telefônica e indisponibilidade de bens. <br><br>Qual delas NÃO depende de ordem judicial?",
-resposta:"Resposta: As CPIs NÃO podem determinar: <b>prisão preventiva, busca e apreensão domiciliar, interceptação telefônica e indisponibilidade de bens</b>, pois dependem de reserva de jurisdição.<br><br>Podem determinar diretamente a <b>quebra de sigilo bancário, fiscal e de dados</b>.<br><br>Base normativa: art. 58, §3º, da CF/88 e jurisprudência consolidada do STF."
-},
-
-{
-materia:"Constitucional - Poder Legislativo",
-pergunta:"3) Conforme a CF/88, a autorização de operações externas de natureza financeira é competência de qual órgão?",
-ajuda:"Opções: Congresso Nacional / Câmara dos Deputados / Senado Federal",
-resposta:"Resposta: <b>Congresso Nacional</b>.<br><br>Base normativa: art. 49, I, da Constituição Federal de 1988."
-},
-
-{
-materia:"Constitucional - Poder Legislativo",
-pergunta:"4) Do que se trata a imunidade parlamentar material? Ela é automática ou depende de requisito segundo o STF?",
-ajuda:"Complete mentalmente: impossibilidade de responsabilização civil ou penal por opiniões, palavras e votos. Há necessidade de nexo com o mandato?",
-resposta:"Resposta: A imunidade parlamentar material consiste na impossibilidade de responsabilização <b>civil ou penal</b> dos parlamentares por suas <b>opiniões, palavras e votos</b>.<br><br>Segundo o STF, sua incidência depende da existência de <b>nexo funcional</b> com o exercício do mandato.<br><br>Base normativa: art. 53, caput, da CF/88."
-},
-
-{
-materia:"Constitucional - Direitos Fundamentais",
-pergunta:"5) A norma do art. 5º, XIII, da CF possui qual tipo de eficácia?",
-ajuda:"Opções: ilimitada / programática / limitada / plena / contida",
-resposta:"Resposta: Norma de eficácia <b>contida</b>.<br><br>Base normativa: art. 5º, XIII, da CF/88."
-},
-
-{
-materia:"Constitucional - Nacionalidade",
-pergunta:"6) Em quais condições o brasileiro pode ser extraditado? E o estrangeiro?",
-ajuda:"Regra: nenhum brasileiro será extraditado. Exceção: brasileiro naturalizado por crime comum antes da naturalização ou tráfico ilícito. Estrangeiro: vedação para crime político ou de opinião.",
-resposta:"Resposta: Regra geral: nenhum brasileiro será extraditado.<br><br>Exceções: admite-se a extradição de <b>brasileiro naturalizado</b> por crime <b>comum praticado antes da naturalização</b> ou por comprovado envolvimento em <b>tráfico ilícito de entorpecentes e drogas afins</b>.<br><br>Não será concedida extradição de estrangeiro por <b>crime político ou de opinião</b>.<br><br>Base normativa: art. 5º, LI e LII, da CF/88."
-},
-
-{
-materia:"Direito Administrativo - Ato Administrativo",
-pergunta:"7) Quais são os 5 elementos do ato administrativo? Em caso de vício sanável, quais admitem convalidação?",
-ajuda:"Elementos: quem pratica, finalidade, forma, motivo e conteúdo. Pense quais vícios não comprometem a essência.",
-resposta:"Resposta: Elementos: <b>competência, finalidade, forma, motivo e objeto</b>.<br><br>Admite-se convalidação quando o vício recair sobre <b>competência (não exclusiva)</b> e <b>forma (não essencial)</b>.<br><br>Base normativa: art. 2º, parágrafo único, da Lei 9.784/1999."
-}
-
+const questions = [
+    {
+        question: `É prerrogativa do TCU apreciar as contas prestadas _________ (periodicidade) pelo _________________________ (pessoa), mediante parecer prévio que deverá ser elaborado em _________ (prazo) dias, a contar de seu recebimento.`,
+        answer: `Resposta: É prerrogativa do TCU apreciar as contas prestadas <b>semestralmente</b> pelo <b>Presidente da República</b>, mediante parecer prévio que deverá ser elaborado em <b>sessenta</b> dias, a contar de seu recebimento.<br><br>
+        Base normativa: art. 71, I, da Constituição Federal de 1988.`,
+        hasOptions: false
+    },
+    {
+        question: `Segundo a jurisprudência do STF, no âmbito dos poderes de investigação das CPIs:<br><br>
+        a) quais são as 4 medidas que não podem ser determinadas pela CPI por dependerem de reserva de jurisdição?<br>
+        b) qual é a 1 medida que pode ser determinada diretamente pela CPI?`,
+        options: `
+        <p>Agora marque, entre as opções abaixo, quais podem e quais não podem ser determinadas por CPI:</p>
+        <label><input type="checkbox"> A CPI pode determinar a indisponibilidade de bens dos investigados.</label><br>
+        <label><input type="checkbox"> A CPI pode determinar a quebra do sigilo bancário.</label><br>
+        <label><input type="checkbox"> A CPI pode decretar prisão preventiva.</label><br>
+        <label><input type="checkbox"> A CPI pode realizar busca domiciliar.</label><br>
+        <label><input type="checkbox"> A CPI pode autorizar interceptação telefônica.</label>
+        `,
+        answer: `Resposta:<br>
+        <b>Não podem ser determinadas pela CPI:</b><br>
+        <b>indisponibilidade de bens</b>, <b>prisão preventiva</b>, <b>busca domiciliar</b> e <b>interceptação telefônica</b>.<br><br>
+        <b>Pode ser determinada pela CPI:</b><br>
+        <b>quebra do sigilo bancário</b>.<br><br>
+        Base normativa: art. 58, §3º, da CF/88; jurisprudência do STF.`,
+        hasOptions: true
+    },
+    {
+        question: `Conforme disposto expressamente no texto da Constituição Federal de 1988, a autorização de operações externas de natureza financeira, de interesse da União, dos Estados, do Distrito Federal, dos Territórios e dos Municípios, é competência de qual órgão?`,
+        options: `
+        <label><input type="radio" name="q3"> Congresso Nacional</label><br>
+        <label><input type="radio" name="q3"> Câmara dos Deputados</label><br>
+        <label><input type="radio" name="q3"> Senado Federal</label>
+        `,
+        answer: `Resposta: <b>Congresso Nacional</b>.<br><br>
+        Base normativa: art. 49, I, da Constituição Federal de 1988.`,
+        hasOptions: true
+    },
+    {
+        question: `Do que se trata a imunidade parlamentar material?<br>
+        Segundo a jurisprudência do STF, essa imunidade é automática ou depende do atendimento de determinado requisito relacionado à atuação parlamentar?`,
+        answer: `Resposta: A imunidade parlamentar material consiste na <b>impossibilidade de responsabilização civil ou penal dos parlamentares por suas opiniões, palavras e votos</b>. Segundo a jurisprudência do STF, sua incidência <b>não é automática</b>, dependendo da existência de <b>nexo funcional entre a manifestação e o exercício do mandato</b>.<br><br>
+        Base normativa: art. 53, caput, da CF/88; jurisprudência do STF.`,
+        hasOptions: false
+    }
 ];
 
-let indice = 0;
+let current = 0;
 
-function carregarPergunta(){
-document.getElementById("materia").innerHTML = perguntas[indice].materia;
-document.getElementById("pergunta").innerHTML = perguntas[indice].pergunta;
-document.getElementById("ajuda").style.display="none";
-document.getElementById("resposta").style.display="none";
-document.getElementById("botoesResultado").style.display="none";
+function loadQuestion() {
+    const q = questions[current];
+    const container = document.getElementById("question-container");
+
+    container.innerHTML = `
+        <div class="question">${q.question}</div>
+
+        ${q.hasOptions ? `<button onclick="showOptions()">Ver opções para conferência</button>` : ``}
+        <button onclick="showAnswer()">Mostrar resposta</button>
+
+        <div class="options" id="options">${q.options || ""}</div>
+
+        <div class="answer" id="answer">${q.answer}</div>
+
+        <div class="feedback-buttons" id="feedback">
+            <button>Acertei</button>
+            <button>Errei</button>
+        </div>
+
+        <div class="next" id="next">
+            <button onclick="nextQuestion()">Próxima pergunta</button>
+        </div>
+    `;
 }
 
-function mostrarAjuda(){
-document.getElementById("ajuda").innerHTML = perguntas[indice].ajuda;
-document.getElementById("ajuda").style.display="block";
+function showOptions() {
+    document.getElementById("options").style.display = "block";
 }
 
-function mostrarResposta(){
-document.getElementById("resposta").innerHTML = perguntas[indice].resposta;
-document.getElementById("resposta").style.display="block";
-document.getElementById("botoesResultado").style.display="block";
+function showAnswer() {
+    document.getElementById("answer").style.display = "block";
+    document.getElementById("feedback").style.display = "block";
+    document.getElementById("next").style.display = "block";
 }
 
-function proximaPergunta(){
-indice++;
-if(indice >= perguntas.length){
-indice = 0;
+function nextQuestion() {
+    current++;
+    if (current < questions.length) {
+        loadQuestion();
+    } else {
+        document.getElementById("question-container").innerHTML =
+            "<h2>Fim do teste 🎉</h2><p>Parabéns por concluir!</p>";
+    }
 }
-carregarPergunta();
-}
 
-function acertou(){ alert("Excelente! Continue assim!"); }
-function errou(){ alert("Revise a base normativa e tente novamente."); }
-
-carregarPergunta();
-
+loadQuestion();
 </script>
 
 </body>
