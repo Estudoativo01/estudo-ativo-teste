@@ -24,7 +24,6 @@ body {
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
 }
 
 select, button {
@@ -53,17 +52,13 @@ button:hover {
 
 .bloco-extra {
     margin-top: 15px;
-    background: #f0f4ff;
-    padding: 10px;
+    background: #eef2ff;
+    padding: 12px;
     border-radius: 6px;
 }
 
 .hidden {
     display: none;
-}
-
-hr {
-    margin: 25px 0;
 }
 </style>
 </head>
@@ -89,30 +84,35 @@ hr {
 
 const perguntas = [
 
-/* ===================== PODER LEGISLATIVO ===================== */
+/* ================= CONSTITUCIONAL - PODER LEGISLATIVO ================= */
 
 {
 materia: "Constitucional",
 assunto: "Poder Legislativo",
-pergunta: `1. É prerrogativa do TCU apreciar as contas prestadas _________ (periodicidade) pelo _________________________ (pessoa), mediante parecer prévio que deverá ser elaborado em _________ (prazo) dias, a contar de seu recebimento.`,
-ajuda: "",
-resposta: `Resposta: É prerrogativa do TCU apreciar as contas prestadas <b>anualmente</b> pelo <b>Presidente da República</b>, mediante parecer prévio que deverá ser elaborado em <b>sessenta dias</b>, a contar de seu recebimento. <br><br>Base normativa: art. 71, I, da Constituição Federal.`,
+pergunta: `1. É prerrogativa do TCU apreciar as contas prestadas _________ pelo _________________________, mediante parecer prévio elaborado em _________ dias.`,
+ajuda: `🔎 Dica:<br><br>
+• O TCU apenas emite parecer prévio — quem julga é o Congresso.<br>
+• A prestação de contas presidencial é periódica.<br>
+• O prazo está expressamente previsto na Constituição.<br><br>
+Pergunte-se: qual é a periodicidade e qual o prazo constitucional?`,
+resposta: `Resposta: É prerrogativa do TCU apreciar as contas prestadas <b>anualmente</b> pelo <b>Presidente da República</b>, mediante parecer prévio elaborado em <b>sessenta dias</b>.<br><br>
+Base normativa: art. 71, I, da Constituição Federal de 1988.`,
 extra: ""
 },
 
 {
 materia: "Constitucional",
 assunto: "Poder Legislativo",
-pergunta: `2. Segundo a jurisprudência do STF:
-a) Quais são as 4 medidas que não podem ser determinadas pela CPI por dependerem de reserva de jurisdição?
-b) Qual é a 1 medida que pode ser determinada diretamente pela CPI?`,
-ajuda: `Quais das opções abaixo podem ser determinadas por uma CPI?<br>
-( ) Determinar indisponibilidade de bens.<br>
-( ) Quebrar sigilo bancário, fiscal e de dados.<br>
-( ) Decretar prisão preventiva.<br>
-( ) Realizar busca domiciliar.<br>
-( ) Autorizar interceptação telefônica.`,
-resposta: `Resposta: A CPI pode determinar <b>quebra de sigilo bancário, fiscal e de dados</b>. <br><br>Não pode determinar: prisão preventiva, busca domiciliar, interceptação telefônica e indisponibilidade de bens. <br><br>Base normativa: art. 58, §3º, CF e jurisprudência do STF.`,
+pergunta: `2. Segundo o STF:
+a) Quais medidas a CPI não pode determinar por dependerem de reserva de jurisdição?
+b) Qual medida pode determinar diretamente?`,
+ajuda: `🔎 Dica estratégica:<br><br>
+A CPI possui poderes investigatórios, mas não exerce jurisdição.<br>
+Pergunte-se: quais medidas restringem direitos fundamentais e exigem decisão judicial?<br>
+E qual medida o STF admite que seja determinada diretamente pela CPI?`,
+resposta: `Resposta: A CPI <b>não pode</b> determinar prisão preventiva, busca domiciliar, interceptação telefônica e indisponibilidade de bens.<br><br>
+Pode determinar diretamente a <b>quebra de sigilo bancário, fiscal e de dados</b>.<br><br>
+Base normativa: art. 58, §3º, da CF/88 e jurisprudência consolidada do STF.`,
 extra: ""
 },
 
@@ -120,38 +120,50 @@ extra: ""
 materia: "Constitucional",
 assunto: "Poder Legislativo",
 pergunta: `3. A autorização de operações externas de natureza financeira é competência de qual órgão?`,
-ajuda: `Congresso Nacional<br>Câmara dos Deputados<br>Senado Federal`,
-resposta: `Resposta: <b>Congresso Nacional</b>. <br><br>Base normativa: art. 49, I, da Constituição Federal.`,
+ajuda: `🔎 Dica:<br><br>
+A Constituição atribui essa competência ao órgão que representa o Poder Legislativo em sua totalidade, e não apenas uma das Casas.`,
+resposta: `Resposta: <b>Congresso Nacional</b>.<br><br>
+Compete ao Congresso Nacional autorizar operações externas de natureza financeira de interesse da União, Estados, DF e Municípios.<br><br>
+Base normativa: art. 49, I, da Constituição Federal de 1988.`,
 extra: ""
 },
 
 {
 materia: "Constitucional",
 assunto: "Poder Legislativo",
-pergunta: `4. Do que se trata a imunidade parlamentar material? É automática ou depende de requisito?`,
-ajuda: `civil | penal | opiniões | palavras | votos | existência de nexo`,
-resposta: `Resposta: A imunidade parlamentar material consiste na impossibilidade de responsabilização <b>civil ou penal</b> dos parlamentares por suas <b>opiniões, palavras e votos</b>. Depende da <b>existência de nexo funcional</b> com o mandato. <br><br>Base normativa: art. 53, caput, CF e jurisprudência do STF.`,
+pergunta: `4. Do que se trata a imunidade parlamentar material? É automática?`,
+ajuda: `🔎 Dica:<br><br>
+Protege o conteúdo das manifestações parlamentares.<br>
+Pergunte-se: protege contra responsabilidade civil? Penal? Ambas?<br>
+É necessário vínculo com o exercício do mandato?`,
+resposta: `Resposta: A imunidade parlamentar material consiste na impossibilidade de responsabilização <b>civil ou penal</b> do parlamentar por suas <b>opiniões, palavras e votos</b>.<br><br>
+Sua incidência depende da existência de <b>nexo funcional</b> com o exercício do mandato.<br><br>
+Base normativa: art. 53, caput, da CF/88 e jurisprudência do STF.`,
 extra: `<b>Quadro comparativo:</b><br>
-Material → protege conteúdo (opiniões, palavras e votos).<br>
-Formal → protege processo (prisão e processo).`
+Material → protege o conteúdo das manifestações.<br>
+Formal → protege contra prisão e processo.`
 },
 
-/* ===================== DIREITOS FUNDAMENTAIS ===================== */
+/* ================= DIREITOS FUNDAMENTAIS ================= */
 
 {
 materia: "Constitucional",
 assunto: "Direitos Fundamentais",
 pergunta: `1. O art. 5º, XIII, da CF possui norma de eficácia ________.`,
-ajuda: `ilimitada | programática | eficácia limitada | eficácia plena | eficácia contida`,
-resposta: `Resposta: <b>Eficácia contida</b>. <br><br>Base normativa: art. 5º, XIII, da Constituição Federal.`,
+ajuda: `🔎 Dica:<br><br>
+A norma garante liberdade profissional, mas permite que a lei estabeleça qualificações.<br>
+Pergunte-se: é autoaplicável? Pode sofrer restrição posterior?`,
+resposta: `Resposta: <b>Eficácia contida</b>.<br><br>
+Possui aplicabilidade imediata, mas admite restrição posterior por lei.<br><br>
+Base normativa: art. 5º, XIII, da Constituição Federal de 1988.`,
 extra: `<b>Explicação:</b><br>
-Plena → aplicabilidade imediata e integral.<br>
-Contida → aplicabilidade imediata, podendo ser restringida por lei.<br>
+Plena → aplicação imediata e integral.<br>
+Contida → aplicação imediata, mas restringível.<br>
 Limitada → depende de regulamentação.<br>
 Programática → estabelece diretrizes.`
 },
 
-/* ===================== NACIONALIDADE ===================== */
+/* ================= NACIONALIDADE ================= */
 
 {
 materia: "Constitucional",
@@ -159,13 +171,16 @@ assunto: "Nacionalidade",
 pergunta: `1. Sobre a extradição:
 a) Em quais condições o brasileiro pode ser extraditado?
 b) E o estrangeiro?`,
-ajuda: `Regra geral: nenhum brasileiro será extraditado.<br>
-Exceções: naturalizado – crime comum antes da naturalização – tráfico ilícito.<br>
-Estrangeiro: crime político ou de opinião.`,
-resposta: `Resposta: Regra geral: nenhum brasileiro será extraditado. <br>
-Exceção: admite-se extradição de <b>naturalizado</b> por crime comum praticado antes da naturalização ou por tráfico ilícito de entorpecentes. <br>
-Estrangeiro: não será concedida extradição por crime político ou de opinião. <br><br>
-Base normativa: art. 5º, LI e LII, CF.`,
+ajuda: `🔎 Dica estruturada:<br><br>
+• Regra geral: brasileiro não é extraditado.<br>
+• Exceção: apenas naturalizado.<br>
+• Analise momento e tipo do crime.<br>
+• Estrangeiro: pense em crime político e de opinião.`,
+resposta: `Resposta:<br>
+Regra geral: nenhum brasileiro será extraditado.<br><br>
+Exceção: admite-se extradição de <b>naturalizado</b> por crime comum praticado <b>antes da naturalização</b> ou por comprovado envolvimento em <b>tráfico ilícito de entorpecentes e drogas afins</b>.<br><br>
+Não será concedida extradição de estrangeiro por crime político ou de opinião.<br><br>
+Base normativa: art. 5º, LI e LII, da CF/88.`,
 extra: ""
 },
 
@@ -173,22 +188,41 @@ extra: ""
 materia: "Constitucional",
 assunto: "Nacionalidade",
 pergunta: `2. Quais são os 7 cargos privativos de brasileiros natos?`,
-ajuda: `Presidência – Defesa – Forças Armadas – Judiciário – Legislativo – Segurança institucional`,
-resposta: `Resposta: Presidente e Vice-Presidente da República; Presidentes da Câmara e do Senado; Ministro do STF; Carreira diplomática; Oficial das Forças Armadas; Ministro da Defesa. <br><br>Base normativa: art. 12, §3º, CF.`,
+ajuda: `🔎 Dica:<br>
+Presidência – Defesa – Forças Armadas – STF – Casas Legislativas – Segurança institucional.`,
+resposta: `Resposta:<br>
+• Presidente e Vice-Presidente da República;<br>
+• Presidente da Câmara dos Deputados;<br>
+• Presidente do Senado Federal;<br>
+• Ministro do Supremo Tribunal Federal;<br>
+• Carreira diplomática;<br>
+• Oficial das Forças Armadas;<br>
+• Ministro de Estado da Defesa.<br><br>
+Base normativa: art. 12, §3º, da Constituição Federal de 1988.`,
 extra: ""
 },
 
-/* ===================== DIREITO ADMINISTRATIVO ===================== */
+/* ================= DIREITO ADMINISTRATIVO ================= */
 
 {
 materia: "Direito Administrativo",
 assunto: "Ato Administrativo",
 pergunta: `1. Quais são os 5 elementos do ato administrativo? Quais admitem convalidação?`,
-ajuda: `quem pratica | finalidade | forma | motivo | conteúdo`,
-resposta: `Resposta: Elementos: <b>Competência, Finalidade, Forma, Motivo e Objeto</b>. <br>
-Admite-se convalidação em vício de <b>competência (não exclusiva)</b> e <b>forma (não essencial)</b>. <br><br>
-Base normativa: art. 55 da Lei 9.784/99 e doutrina majoritária.`,
-extra: `<b>Mnemônico:</b> FOCO NA CONVALIDAÇÃO = Competência e Forma`
+ajuda: `🔎 Dica conceitual:<br><br>
+Os elementos envolvem sujeito, finalidade pública, forma, motivo e conteúdo.<br>
+Convalidação só é possível quando o vício não compromete a essência do ato nem gera prejuízo ao interesse público.`,
+resposta: `Resposta:<br>
+Elementos do ato administrativo:<br>
+• Competência<br>
+• Finalidade<br>
+• Forma<br>
+• Motivo<br>
+• Objeto<br><br>
+Admite-se convalidação quando o vício recair sobre:<br>
+<b>Competência</b> (desde que não seja exclusiva)<br>
+<b>Forma</b> (desde que não seja essencial)<br><br>
+Base normativa: art. 55 da Lei 9.784/1999 e doutrina majoritária.`,
+extra: `<b>Mnemônico:</b> FOCO NA CONVALIDAÇÃO = Competência e Forma.`
 }
 
 ];
@@ -274,4 +308,3 @@ carregarFiltros();
 
 </body>
 </html>
-
